@@ -18,7 +18,7 @@ var particle = new Particle();
 particle.login({username: process.env.mysparkemail, password: process.env.mysparkpw});
 
 
-//// Check twitter streaming API for these words
+// Check twitter streaming API for these words
 var stream = T.stream('statuses/filter', { track: ['connectedNES','oscon'] })
 
 
@@ -72,6 +72,23 @@ stream.on('tweet', function(json) {
     );
     
 });
+
+
+// Print information to console for monitoring/debugging
+stream.on('limit', function (limitMessage) {
+  console.log("Limit message from twitter! " + limitMessage);
+});
+stream.on('disconnect', function (disconnectMessage) {
+  console.log("Disconnected from twitter! " + disconnectMessage);
+});
+stream.on('reconnect', function (request, response, connectInterval) {
+  console.log("Reconnecting to twitter... wait " + connectInterval)
+});
+stream.on('warning', function (warning) {
+  console.log("Warning! Queue may be falling behind! " + warning);
+});
+
+
 
 
 function splitTweet(x){

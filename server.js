@@ -105,7 +105,7 @@ function splitTweet(x){
     //// Figure out how to cleverly break a tweet into six lines with no more than 24 characters per line. Deals with edge cases like very long words or tweets that must be truncated.
     var tweetlength = x.length;
     if (tweetlength <= 24) {
-        line1 = (x + "                        ").slice(0,24);
+        line1 = (x.trim() + "                        ").slice(0,24);
     }
     if (tweetlength > 24) {
         var words = x.split(' ');

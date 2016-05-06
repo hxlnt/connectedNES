@@ -1,0 +1,11 @@
+{
+  "name": "connectednes",
+  "version": "1.0.0",
+  "description": "tweetendo",
+  "main": "server.js",
+  "dependencies": {
+    "particle-api-js": "^5.2.6",
+    "twit": "^2.2.3"
+  },
+  "author": "Rachel Weil"
+}

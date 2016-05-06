@@ -118,6 +118,7 @@ function splitTweet(x){
         }
         var i = 0;
         line1 = words[i];
+        tweetlines = [line1, line2, line3, line4, line5, line6];
         for (j = 0; j < 6; j++) {
             if ((tweetlines[j] + ' ' + words[(i+1)]).length > 24) {
                 tweetlines[j] = words[i+1];

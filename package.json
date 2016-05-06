@@ -10,5 +10,6 @@
    "scripts": { 
 7     "test": "echo \"Error: no test specified\" && exit 1", 
 8     "start": "node server.js" 
+},
   "author": "Rachel Weil"
 }

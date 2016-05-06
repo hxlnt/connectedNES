@@ -99,6 +99,7 @@ function splitTweet(x){
     line4 = ' ';
     line5 = ' ';
     line6 = ' ';
+    var tweetlines = [line1, line2, line3, line4, line5, line6];
     //// Replace emoji and unrecognized characters outside of basic ASCII with a '?'
     x = x.replace(/([\u007F-\uFF8FF])/g, '?');
     //// Figure out how to cleverly break a tweet into six lines with no more than 24 characters per line. Deals with edge cases like very long words or tweets that must be truncated.
@@ -117,7 +118,6 @@ function splitTweet(x){
         }
         var i = 0;
         line1 = words[i];
-        var tweetlines = [line1, line2, line3, line4, line5, line6];
         for (j = 0; j < 6; j++) {
             if ((tweetlines[j] + ' ' + words[(i+1)]).length > 24) {
                 tweetlines[j] = words[i+1];

@@ -18,7 +18,7 @@ var particle = new Particle();
 particle.login({username: process.env.mysparkemail, password: process.env.mysparkpw});
 
 
-//// Check twitter streaming API for these words
+// Check twitter streaming API for these words
 var stream = T.stream('statuses/filter', { track: ['connectedNES','oscon'] })
 
 
@@ -74,6 +74,23 @@ stream.on('tweet', function(json) {
 });
 
 
+// Print information to console for monitoring/debugging
+stream.on('limit', function (limitMessage) {
+  console.log("Limit message from twitter! " + limitMessage);
+});
+stream.on('disconnect', function (disconnectMessage) {
+  console.log("Disconnected from twitter! " + disconnectMessage);
+});
+stream.on('reconnect', function (request, response, connectInterval) {
+  console.log("Reconnecting to twitter... wait " + connectInterval)
+});
+stream.on('warning', function (warning) {
+  console.log("Warning! Queue may be falling behind! " + warning);
+});
+
+
+
+
 function splitTweet(x){
     //// Clear out all lines from previous tweet.
     line1 = ' ';
@@ -82,12 +99,13 @@ function splitTweet(x){
     line4 = ' ';
     line5 = ' ';
     line6 = ' ';
+    var tweetlines = [line1, line2, line3, line4, line5, line6];
     //// Replace emoji and unrecognized characters outside of basic ASCII with a '?'
     x = x.replace(/([\u007F-\uFF8FF])/g, '?');
     //// Figure out how to cleverly break a tweet into six lines with no more than 24 characters per line. Deals with edge cases like very long words or tweets that must be truncated.
     var tweetlength = x.length;
     if (tweetlength <= 24) {
-        line1 = (x + "                        ").slice(0,24);
+        tweetlines[0] = x;
     }
     if (tweetlength > 24) {
         var words = x.split(' ');
@@ -100,7 +118,7 @@ function splitTweet(x){
         }
         var i = 0;
         line1 = words[i];
-        var tweetlines = [line1, line2, line3, line4, line5, line6];
+        tweetlines = [line1, line2, line3, line4, line5, line6];
         for (j = 0; j < 6; j++) {
             if ((tweetlines[j] + ' ' + words[(i+1)]).length > 24) {
                 tweetlines[j] = words[i+1];
@@ -113,11 +131,11 @@ function splitTweet(x){
                 }
             } 
         }
+    }
         line1 = (tweetlines[0].trim() + "                        ").slice(0,24);
         line2 = (tweetlines[1].trim() + "                        ").slice(0,24);
         line3 = (tweetlines[2].trim() + "                        ").slice(0,24);
         line4 = (tweetlines[3].trim() + "                        ").slice(0,24);
         line5 = (tweetlines[4].trim() + "                        ").slice(0,24);
         line6 = (tweetlines[5].trim() + "                        ").slice(0,24);
-    }
 }

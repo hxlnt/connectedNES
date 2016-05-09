@@ -133,7 +133,7 @@ Vblank2:                ; Wait for second V-blank                   ;;
     LDA #$00            ; Reset framecounter                        ;;
     STA framecounter                                                ;;
 	STA printablebyte   ; Clear printable byte tile                 ;;
-	LDA #$21            ; Set printing location to origin ($20A4)   ;;
+	LDA #$21            ; Set printing location to origin ($2104)   ;;
 	STA printouthibyte                        
 	LDA #$04
 	STA printoutlobyte
@@ -240,6 +240,8 @@ DisplayBytes:           ; Display letters from Photon               ;;
 	LDA buttons2		
     STA printablebyte
 	BEQ NoBytes
+    CMP #$E8
+    BEQ ResetMsg
 PrintTest:
     LDA printouthibyte
     CMP #$21
@@ -250,9 +252,17 @@ PrintTest:
     LDA #$DB
     STA printablebyte
     JMP UpdateMsgcounter
+    JMP Print
 ;    JMP NMIDone
+ResetMsg:
+    LDA #$02
+    STA printablebyte
+    LDA #$21
+    STA printouthibyte
+    LDA #$04
+    STA printoutlobyte
 Print:
-	LDA printouthibyte
+    LDA printouthibyte
 	STA $2006
 	LDA printoutlobyte
 	STA $2006

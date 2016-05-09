@@ -21,6 +21,15 @@ particle.login({username: process.env.mysparkemail, password: process.env.myspar
 // Check twitter streaming API for these words
 var stream = T.stream('statuses/filter', { track: ['connectedNES','oscon'] })
 
+var http = require('http');
+
+// HTTP server
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("ConnectedNES\n");
+});
+server.listen(0);
+console.log("Server running...");
 
 // Parse incoming tweets
 stream.on('tweet', function(json) {

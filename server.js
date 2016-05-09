@@ -28,7 +28,7 @@ var server = http.createServer(function (request, response) {
   response.writeHead(200, {"Content-Type": "text/plain"});
   response.end("ConnectedNES\n");
 });
-server.listen(0);
+server.listen(process.env.PORT);
 console.log("Server running...");
 
 // Parse incoming tweets

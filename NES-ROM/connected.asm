@@ -25,7 +25,7 @@
 ;♥                      ; adapted for use here.                     ♥;
 ;♥                                                                  ♥;
 ;♥                      ; Rachel Simone Weil                        ♥;
-;♥                      ; http://nobadmemories.com                  ♥;
+;♥                      ; http://nobadmemories.com/connectednes     ♥;
 ;♥                      ; http://github.com/hxlnt                   ♥;
 ;♥                                                                  ♥;
 ;♥                                                                  ♥;

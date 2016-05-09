@@ -46,7 +46,7 @@ stream.on('tweet', function(json) {
         }
         else {}
     //// Display shortened date on a single space-paddded line
-    var fulldate = (month + ' ' + day + ' ' + hour + ':' + min + ampm + "                        ").slice(0,24);
+    var fulldate = (month + ' ' + day + ' ' + hour + ':' + min + ampm + "                       ").slice(0,23);
     //// Split tweet text across six lines
     splitTweet(text);
     //// Print a preview of the tweet to the console
@@ -101,7 +101,7 @@ function splitTweet(x){
     line6 = ' ';
     var tweetlines = [line1, line2, line3, line4, line5, line6];
     //// Replace emoji and unrecognized characters outside of basic ASCII with a '?'
-    x = x.replace(/([\u007F-\uFF8FF])/g, '?');
+    x = x.replace(/([\u0080-\uFF8FF])/g, '?');
     //// Figure out how to cleverly break a tweet into six lines with no more than 24 characters per line. Deals with edge cases like very long words or tweets that must be truncated.
     var tweetlength = x.length;
     if (tweetlength <= 24) {

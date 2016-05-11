@@ -25,7 +25,7 @@
 ;♥                      ; adapted for use here.                     ♥;
 ;♥                                                                  ♥;
 ;♥                      ; Rachel Simone Weil                        ♥;
-;♥                      ; http://nobadmemories.com/connectednes     ♥;
+;♥                      ; http://nobadmemories.com                  ♥;
 ;♥                      ; http://github.com/hxlnt                   ♥;
 ;♥                                                                  ♥;
 ;♥                                                                  ♥;
@@ -240,7 +240,7 @@ DisplayBytes:           ; Display letters from Photon               ;;
 	LDA buttons2		
     STA printablebyte
 	BEQ NoBytes
-    CMP #$E8
+    CMP #$17
     BEQ ResetMsg
 PrintTest:
     LDA printouthibyte
@@ -257,12 +257,12 @@ PrintTest:
 ResetMsg:
     LDA #$02
     STA printablebyte
-    LDA #$21
+	LDA #$21
     STA printouthibyte
     LDA #$04
-    STA printoutlobyte
+	STA printoutlobyte
 Print:
-    LDA printouthibyte
+	LDA printouthibyte
 	STA $2006
 	LDA printoutlobyte
 	STA $2006

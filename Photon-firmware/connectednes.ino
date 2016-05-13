@@ -4,6 +4,7 @@
 #define NES_CLOCK D1                                // Red wire
 #define NES_LATCH D2                                // Orange wire
 #define NES_DATA D3                                 // Yellow wire
+#define LED 7
 
 volatile unsigned char latchedByte;                 // Controller press byte value = one letter in tweet
 volatile unsigned char bitCount;                    // A single LDA $4017 (get one bit from "controller press")
@@ -27,8 +28,8 @@ void setup() {
     attachInterrupt(NES_CLOCK, ClockNES, FALLING);  // When NES clock ends, execute ClockNES
     attachInterrupt(NES_LATCH, LatchNES, RISING);   // When NES latch fires, execure LatchNES
     
-    pinMode(7, OUTPUT);                             // Turn off the Photon's on-board LED
-    digitalWrite(7, LOW);                           //
+    pinMode(LED, OUTPUT);                             // Turn off the Photon's on-board LED
+    digitalWrite(LED, LOW);                           //
     
     byteCount = 0;                                  // Initialize byteCount at zero, no letters printed to screen
     bytesToTransfer = 0;                            // Initialize bytesToTransfer at zero, no letters waiting to print to screen
@@ -48,7 +49,7 @@ void loop() {                                       // 'Round and 'round we go
 
 
 void myHandler(String event, String data) {
-    digitalWrite(7, HIGH);
+    digitalWrite(LED, HIGH);                        // Turn on the Photon's on-board LED
     char inputStr[193];
     data.toCharArray(inputStr, 193);
     tweetData[0] = 0xE8;
@@ -57,7 +58,7 @@ void myHandler(String event, String data) {
     memset(&inputStr[0], 0, sizeof(inputStr));
     bytesToTransfer = 192;
     byteCount = 0;
-    digitalWrite(7, LOW);
+    digitalWrite(LED, LOW);                         // Turn off the Photon's on-board LED
     }
 
 

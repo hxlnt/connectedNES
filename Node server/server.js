@@ -40,8 +40,8 @@ stream.on('tweet', function(json) {
             hour = hour + 12;
             ampm = 'P';
         }
-        if (hour = 0) {
-            hour = 12;
+        else if (hour = 0) {
+            hour == 12;
         }
         else if (hour > 12) {
             hour = hour - 12;

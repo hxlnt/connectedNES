@@ -40,10 +40,10 @@ stream.on('tweet', function(json) {
             hour = hour + 12;
             ampm = 'P';
         }
-        else if (hour = 0) {
-            hour == 12;
+        if (hour == 0) {
+            hour = 12;
         }
-        else if (hour > 12) {
+        if (hour > 12) {
             hour = hour - 12;
             ampm = 'P';
         }
@@ -103,7 +103,8 @@ function splitTweet(x){
     line5 = ' ';
     line6 = ' ';
     var tweetlines = [line1, line2, line3, line4, line5, line6];
-    //// Replace emoji and unrecognized characters outside of basic ASCII with a '?', show ampersands properly
+    //// Replace emoji and unrecognized characters outside of basic ASCII with a '?', show ampersands and smart apostrophes properly
+    x = x.replace(/[\u2019]/g, "'");
     x = x.replace(/([\u007F-\uFF8F])/g, '?');
     x = x.replace(/&amp;/g, '&');
     //// Figure out how to cleverly break a tweet into six lines with no more than 24 characters per line. Deals with edge cases like very long words or tweets that must be truncated.

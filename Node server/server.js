@@ -36,11 +36,14 @@ stream.on('tweet', function(json) {
     //// This is a quick-and-dirty fix for Central Standard Time. It should someday be replaced with something more universal. Currently, this code will give an incorrect result if the day/month/year has just switched over. This can be fixed in the future by adding lookup tables or by using a date-parsing Javascript library. To be implemented at a later date.
     var ampm = 'A';
         hour = hour - 5;
-        if (hour <= 0) {
+        if (hour < 0) {
             hour = hour + 12;
             ampm = 'P';
         }
-        else if (hour >= 12) {
+        if (hour = 0) {
+            hour = 12;
+        }
+        else if (hour > 12) {
             hour = hour - 12;
             ampm = 'P';
         }
@@ -101,6 +104,7 @@ function splitTweet(x){
     line6 = ' ';
     var tweetlines = [line1, line2, line3, line4, line5, line6];
     //// Replace emoji and unrecognized characters outside of basic ASCII with a '?', show ampersands properly
+    x = x.replace(/[\u2019]/g, ''');
     x = x.replace(/([\u007F-\uFF8F])/g, '?');
     x = x.replace(/&amp;/g, '&');
     //// Figure out how to cleverly break a tweet into six lines with no more than 24 characters per line. Deals with edge cases like very long words or tweets that must be truncated.

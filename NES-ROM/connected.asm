@@ -332,7 +332,6 @@ ResetSpritePos:
 	STA $2005
 	STA $2005
 	JSR TurnScreenOn
-    ;JSR PLAYADDR        ; Update audio                              ;;
     PLA                 ; Restore registers                         ;;
     TAY                                                             ;;
     PLA                                                             ;;
@@ -364,48 +363,6 @@ LoadDefaultPalLoop:                                                 ;;
     CPX #$20                                                        ;;
     BNE LoadDefaultPalLoop                                          ;;
     RTS                                                             ;;
-; LoadDarkPal:            ; "Load Dark palette" subroutine            ;;
-    ; LDA $2002                                                       ;;
-    ; LDA #$3F                                                        ;;
-    ; STA $2006                                                       ;;
-    ; LDA #$00                                                        ;;
-    ; STA $2006                                                       ;;
-    ; LDX #$00                                                        ;;
-; LoadDarkPalLoop:                                                    ;;
-    ; LDA darkpal, x                                                  ;;
-    ; STA $2007                                                       ;;
-    ; INX                                                             ;;
-    ; CPX #$20                                                        ;;
-    ; BNE LoadDarkPalLoop                                             ;;
-    ; RTS                                                             ;;
-; LoadBrightPal:          ; "Load Bright palette" subroutine          ;;
-    ; LDA $2002                                                       ;;
-    ; LDA #$3F                                                        ;;
-    ; STA $2006                                                       ;;
-    ; LDA #$00                                                        ;;
-    ; STA $2006                                                       ;;
-    ; LDX #$00                                                        ;;
-; LoadBrightPalLoop:                                                  ;;
-    ; LDA brightpal, x                                                ;;
-    ; STA $2007                                                       ;;
-    ; INX                                                             ;;
-    ; CPX #$20                                                        ;;
-    ; BNE LoadBrightPalLoop                                           ;;
-    ; RTS                                                             ;;
-; LoadPastelPal:          ; "Load Pastel palette" subroutine          ;;
-    ; LDA $2002                                                       ;;
-    ; LDA #$3F                                                        ;;
-    ; STA $2006                                                       ;;
-    ; LDA #$00                                                        ;;
-    ; STA $2006                                                       ;;
-    ; LDX #$00                                                        ;;
-; LoadPastelPalLoop:                                                  ;;
-    ; LDA pastelpal, x                                                ;;
-    ; STA $2007                                                       ;;
-    ; INX                                                             ;;
-    ; CPX #$20                                                        ;;
-    ; BNE LoadPastelPalLoop                                           ;;
-    ; RTS                                                             ;;
 LoadBG:                 ; "Load background" subroutine              ;;
     LDA $2002                                                       ;;
     LDA #$3F                                                        ;;
@@ -441,7 +398,7 @@ LoadTitleNewNam3:       ; Load third set of 256 background tiles    ;;
     INX                                                             ;;
     BNE LoadTitleNewNam3                                            ;;
 LoadTitleNewNam4:       ; Load fourth set of background tiles       ;;
-    LDA background4,x                                                        ;;
+    LDA background4,x                                               ;;
     STA $2007                                                       ;;
     INX                                                             ;;
     CPX #$E0            ; (Don't have to load all 256)              ;;
@@ -522,20 +479,20 @@ ReadController2Loop:                                                ;;
 ;;;;;;;;;;;; 6.3 Binary data ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                                                     ;;
 background1:            ; First 256-tile set of background          ;;
-    .incbin "loadingscreen1.nam"                                            ;;
+    .incbin "loadingscreen1.nam"                                    ;;
 background2:            ; Second 256-tile set of background         ;;
-    .incbin "loadingscreen2.nam"                                            ;;
+    .incbin "loadingscreen2.nam"                                    ;;
 background3:            ; Third 256-tile set of background          ;;
-    .incbin "loadingscreen3.nam"                                            ;;
+    .incbin "loadingscreen3.nam"                                    ;;
 background4:            ; Third 256-tile set of background          ;;
-    .incbin "loadingscreen4.nam"                                            ;;
+    .incbin "loadingscreen4.nam"                                    ;;
 defaultpal:             ; Default color palette                     ;;
-	.incbin "test.pal" ;;
+    .incbin "test.pal" 					        					;;
 attr:                   ; Color attribute table                     ;;
-	.incbin "test.atr"
+    .incbin "test.atr"												;;
 tweetatme:
-	.db $30,$04,$20,$c0 ; First row of balloon 1                    ;;
-	.db $30,$05,$20,$c8
+    .db $30,$04,$20,$c0 ; First row of balloon 1                    ;;
+    .db $30,$05,$20,$c8
     .db $30,$06,$20,$d0
     .db $38,$14,$20,$c0 ; Second row of balloon 1
     .db $38,$15,$20,$c8
@@ -550,8 +507,8 @@ tweetatme:
     .db $58,$55,$20,$c8    
     .db $60,$65,$20,$c8    
     .db $68,$75,$20,$c8   
-	.db $70,$04,$21,$80 ; First row of balloon 2                    ;;
-	.db $70,$05,$21,$88
+    .db $70,$04,$21,$80 ; First row of balloon 2                    ;;
+    .db $70,$05,$21,$88
     .db $70,$06,$21,$90
     .db $78,$14,$21,$80 ; Second row of balloon 2
     .db $78,$15,$21,$88

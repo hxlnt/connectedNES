@@ -19,7 +19,7 @@ particle.login({username: process.env.mysparkemail, password: process.env.myspar
 
 
 // Check twitter streaming API for these words
-var stream = T.stream('statuses/filter', { track: ['connectedNES','nodebots'] })
+var stream = T.stream('statuses/filter', { track: ['connectedNES'] })
 
 
 // Parse incoming tweets

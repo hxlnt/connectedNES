@@ -19,7 +19,7 @@ particle.login({username: process.env.mysparkemail, password: process.env.myspar
 
 
 // Check twitter streaming API for these words
-var stream = T.stream('statuses/filter', { track: ['connectedNES'] })
+var stream = T.stream('statuses/filter', { track: ['connectedNES', 'dorkbotatx'] })
 
 
 // Parse incoming tweets
@@ -33,9 +33,9 @@ stream.on('tweet', function(json) {
     var day = json.created_at.slice(8,10);
     var hour = json.created_at.slice(11,13);
     var min = json.created_at.slice(14,16);
-    //// This is a quick-and-dirty fix for Eastern Time. It should someday be replaced with something more universal. Currently, this code will give an incorrect result if the day/month/year has just switched over. This can be fixed in the future by adding lookup tables or by using a date-parsing Javascript library. To be implemented at a later date.
+    //// This is a quick-and-dirty fix for Central Time. It should someday be replaced with something more universal. Currently, this code will give an incorrect result if the day/month/year has just switched over. This can be fixed in the future by adding lookup tables or by using a date-parsing Javascript library. To be implemented at a later date.
     var ampm = 'A';
-        hour = hour - 4;
+        hour = hour - 5;
         if (hour < 0) {
             hour = hour + 12;
             ampm = 'P';

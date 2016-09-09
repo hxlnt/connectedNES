@@ -19,9 +19,8 @@ particle.login({username: process.env.mysparkemail, password: process.env.myspar
 
 
 // Check twitter streaming API for these words
-var stream = T.stream('statuses/filter', { track: ['connectedNES'] });
+var stream = T.stream('statuses/filter', { track: ['connectedNES', 'xoxofest'] });
 var portland = [ '-122.746987', '45.566123', '-122.567086', '45.476249' ]
-var stream2 = T.stream('statuses/filter', { track: ['xoxofest'], locations: portland });
 
 // Parse incoming tweets
 stream.on('tweet', function(json) {

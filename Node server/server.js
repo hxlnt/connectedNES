@@ -20,7 +20,6 @@ particle.login({username: process.env.mysparkemail, password: process.env.myspar
 
 // Check twitter streaming API for these words
 var stream = T.stream('statuses/filter', { track: ['connectedNES', 'xoxofest'] });
-var portland = [ '-122.746987', '45.566123', '-122.567086', '45.476249' ]
 
 // Parse incoming tweets
 stream.on('tweet', function(json) {
@@ -76,59 +75,6 @@ stream.on('tweet', function(json) {
     
 });
 
-// Parse incoming tweets
-stream2.on('tweet', function(json) {
-    
-    var text = json.text;
-    //// Username associated with a tweet is printed to the NES on its own line and padded with spaces so the NES doesn't have to figure out line breaks. Each line contains 24 characters.
-    var user = ("@" + json.user.screen_name + "                       ").slice(0,24);
-    //// Date is reformatted to display more concisely.
-    var month = json.created_at.slice(4,7);
-    var day = json.created_at.slice(8,10);
-    var hour = json.created_at.slice(11,13);
-    var min = json.created_at.slice(14,16);
-    //// This is a quick-and-dirty fix for Pacific Time. It should someday be replaced with something more universal. Currently, this code will give an incorrect result if the day/month/year has just switched over. This can be fixed in the future by adding lookup tables or by using a date-parsing Javascript library. To be implemented at a later date.
-    var ampm = 'A';
-        hour = hour - 7;
-        if (hour < 0) {
-            hour = hour + 12;
-            ampm = 'P';
-        }
-        if (hour == 0) {
-            hour = 12;
-        }
-        if (hour > 12) {
-            hour = hour - 12;
-            ampm = 'P';
-        }
-        else {}
-    //// Display shortened date on a single space-paddded line
-    var fulldate = (month + ' ' + day + ' ' + hour + ':' + min + ampm + "                        ").slice(0,24);
-    //// Split tweet text across six lines
-    splitTweet(text);
-    //// Print a preview of the tweet to the console
-    console.log(user);
-    console.log(line1);
-    console.log(line2);
-    console.log(line3);
-    console.log(line4);
-    console.log(line5);
-    console.log(line6);
-    console.log(fulldate);
-    //// We'll send all eight lines, even if some of them are blank, to the NES. Clear lines will blank out whatever tiles were printed previously, and this way the NES doesn't have to parse anything.
-    var fullpayload = user + line1 + line2 + line3 + line4 + line5 + line6 + fulldate;
-    //// Stream data payload to Particle Photon
-    var publishEventPr = particle.publishEvent({ name: 'tweet', data: fullpayload, auth: process.env.mysparktoken });
-    publishEventPr.then(
-        function(data) {
-            if (data.ok) { console.log("Event published succesfully") }
-        },
-        function(err) {
-            console.log("Failed to publish event: " + err)
-        }
-    );
-    
-});
 
 
 // Print information to console for monitoring/debugging

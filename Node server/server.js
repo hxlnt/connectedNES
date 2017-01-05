@@ -19,7 +19,7 @@ particle.login({username: process.env.mysparkemail, password: process.env.myspar
 
 
 // Check twitter streaming API for these words
-var stream = T.stream('statuses/filter', { track: ['connectedNES', 'radicalnetworks'] })
+var stream = T.stream('statuses/filter', { track: ['connectedNES'] })
 
 
 // Parse incoming tweets
@@ -35,7 +35,7 @@ stream.on('tweet', function(json) {
     var min = json.created_at.slice(14,16);
     //// This is a quick-and-dirty fix for Central Time. It should someday be replaced with something more universal. Currently, this code will give an incorrect result if the day/month/year has just switched over. This can be fixed in the future by adding lookup tables or by using a date-parsing Javascript library. To be implemented at a later date.
     var ampm = 'A';
-        hour = hour - 4;
+        hour = hour - 6;
         if (hour < 0) {
             hour = hour + 12;
             ampm = 'P';
